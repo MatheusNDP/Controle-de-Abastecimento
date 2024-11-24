@@ -6,7 +6,6 @@ import 'screens/vehicle_screen.dart';
 import 'screens/add_vehicle_screen.dart';
 import 'screens/refuel_history_screen.dart';
 import 'screens/profile_screen.dart';
-import 'screens/vehicle_details_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
