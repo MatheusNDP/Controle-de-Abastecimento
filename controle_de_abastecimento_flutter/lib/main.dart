@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'screens/login_screen.dart';
+import 'screens/register_screen.dart'; // Importar a nova tela de cadastro
 import 'screens/home_screen.dart';
 import 'screens/vehicle_screen.dart';
 import 'screens/add_vehicle_screen.dart';
@@ -9,11 +10,11 @@ import 'screens/profile_screen.dart';
 import 'firebase_options.dart';
 
 void main() async {
- WidgetsFlutterBinding.ensureInitialized();
-await Firebase.initializeApp(
-  options: DefaultFirebaseOptions.currentPlatform,
-);
-runApp(const MyApp());
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -30,6 +31,7 @@ class MyApp extends StatelessWidget {
       initialRoute: '/login',
       routes: {
         '/login': (context) => const LoginScreen(),
+        '/register': (context) => const RegisterScreen(), // Nova rota para cadastro
         '/home': (context) => const HomeScreen(),
         '/vehicles': (context) => const VehicleScreen(),
         '/add_vehicle': (context) => const AddVehicleScreen(),

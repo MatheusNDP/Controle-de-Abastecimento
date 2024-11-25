@@ -1,32 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+class RegisterScreen extends StatefulWidget {
+  const RegisterScreen({super.key});
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<RegisterScreen> createState() => _RegisterScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _RegisterScreenState extends State<RegisterScreen> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-
-  Future<void> loginUser() async {
-    try {
-      await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: emailController.text,
-      password: passwordController.text, 
-      );
-      Navigator.pushReplacementNamed(context, '/home'); // Vai para a tela Home
-    } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Erro ao fazer login: $e')),
-      );
-    }
-  }
+  final TextEditingController confirmPasswordController = TextEditingController();
 
   Future<void> registerUser() async {
+    if (passwordController.text != confirmPasswordController.text) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('As senhas não coincidem.')),
+      );
+      return;
+    }
+
     try {
       await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: emailController.text,
@@ -35,6 +29,7 @@ class _LoginScreenState extends State<LoginScreen> {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Cadastro realizado com sucesso!')),
       );
+      Navigator.pushReplacementNamed(context, '/login');
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Erro ao cadastrar: $e')),
@@ -45,7 +40,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Login')),
+      appBar: AppBar(title: const Text('Cadastro de Usuário')),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -60,15 +55,20 @@ class _LoginScreenState extends State<LoginScreen> {
               decoration: const InputDecoration(labelText: 'Senha'),
               obscureText: true,
             ),
+            TextField(
+              controller: confirmPasswordController,
+              decoration: const InputDecoration(labelText: 'Confirmar Senha'),
+              obscureText: true,
+            ),
             const SizedBox(height: 20),
             ElevatedButton(
-              onPressed: loginUser,
-              child: const Text('Login'),
+              onPressed: registerUser,
+              child: const Text('Cadastrar'),
             ),
             TextButton(
-  onPressed: () => Navigator.pushNamed(context, '/register'),
-  child: const Text('Cadastrar-se'),
-),
+              onPressed: () => Navigator.pop(context),
+              child: const Text('Já possui uma conta? Faça login'),
+            ),
           ],
         ),
       ),
