@@ -1,3 +1,4 @@
+import 'package:controle_de_abastecimento_flutter/widgets/home_button.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -13,7 +14,9 @@ class ProfileScreen extends StatelessWidget {
         TextEditingController(text: user?.email ?? '');
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Perfil')),
+      appBar: AppBar(title: const Text('Perfil'),
+      actions: const [HomeButton()]
+      ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(

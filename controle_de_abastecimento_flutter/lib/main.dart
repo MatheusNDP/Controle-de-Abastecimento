@@ -6,11 +6,14 @@ import 'screens/vehicle_screen.dart';
 import 'screens/add_vehicle_screen.dart';
 import 'screens/refuel_history_screen.dart';
 import 'screens/profile_screen.dart';
+import 'firebase_options.dart';
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
-  runApp(const MyApp());
+ WidgetsFlutterBinding.ensureInitialized();
+await Firebase.initializeApp(
+  options: DefaultFirebaseOptions.currentPlatform,
+);
+runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {

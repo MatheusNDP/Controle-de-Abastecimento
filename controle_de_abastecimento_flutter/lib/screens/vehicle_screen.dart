@@ -1,3 +1,4 @@
+import 'package:controle_de_abastecimento_flutter/widgets/home_button.dart';
 import 'package:flutter/material.dart';
 import '../widgets/vehicle_card.dart';
 
@@ -13,7 +14,9 @@ class VehicleScreen extends StatelessWidget {
     ];
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Meus Veículos')),
+      appBar: AppBar(title: const Text('Meus Veículos'),
+      actions: const [HomeButton()]
+      ),
       body: ListView.builder(
         itemCount: vehicles.length,
         itemBuilder: (context, index) {

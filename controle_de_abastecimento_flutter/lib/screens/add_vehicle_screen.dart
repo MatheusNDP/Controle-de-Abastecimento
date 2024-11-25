@@ -1,3 +1,4 @@
+import 'package:controle_de_abastecimento_flutter/widgets/home_button.dart';
 import 'package:flutter/material.dart';
 
 class AddVehicleScreen extends StatelessWidget {
@@ -11,7 +12,9 @@ class AddVehicleScreen extends StatelessWidget {
     final TextEditingController plateController = TextEditingController();
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Adicionar Veículo')),
+      appBar: AppBar(title: const Text('Adicionar Veículo'),
+       actions: const [HomeButton()]
+      ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(

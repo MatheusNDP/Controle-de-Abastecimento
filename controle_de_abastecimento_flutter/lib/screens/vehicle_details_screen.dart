@@ -1,3 +1,4 @@
+import 'package:controle_de_abastecimento_flutter/widgets/home_button.dart';
 import 'package:flutter/material.dart';
 
 class VehicleDetailsScreen extends StatelessWidget {
@@ -19,7 +20,9 @@ class VehicleDetailsScreen extends StatelessWidget {
     );
 
     return Scaffold(
-      appBar: AppBar(title: Text(vehicleData['name'] ?? 'Detalhes do Veículo')),
+      appBar: AppBar(title: Text(vehicleData['name'] ?? 'Detalhes do Veículo'),
+      actions: const [HomeButton()]
+      ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(

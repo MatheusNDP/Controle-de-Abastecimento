@@ -1,3 +1,4 @@
+import 'package:controle_de_abastecimento_flutter/widgets/home_button.dart';
 import 'package:flutter/material.dart';
 import '../widgets/refuel_card.dart';
 
@@ -21,7 +22,9 @@ class RefuelHistoryScreen extends StatelessWidget {
     ];
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Histórico de Abastecimentos')),
+      appBar: AppBar(title: const Text('Histórico de Abastecimentos'),
+      actions: const [HomeButton()]
+      ),
       body: ListView.builder(
         itemCount: refuels.length,
         itemBuilder: (context, index) {
