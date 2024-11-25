@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'screens/login_screen.dart';
-import 'screens/register_screen.dart'; // Importar a nova tela de cadastro
+import 'screens/register_screen.dart'; // Tela de cadastro
+import 'screens/password_reset_request_screen.dart'; // Tela de recuperação de senha
 import 'screens/home_screen.dart';
 import 'screens/vehicle_screen.dart';
 import 'screens/add_vehicle_screen.dart';
@@ -31,7 +32,8 @@ class MyApp extends StatelessWidget {
       initialRoute: '/login',
       routes: {
         '/login': (context) => const LoginScreen(),
-        '/register': (context) => const RegisterScreen(), // Nova rota para cadastro
+        '/register': (context) => const RegisterScreen(),
+        '/password_reset_request': (context) => const PasswordResetRequestScreen(),
         '/home': (context) => const HomeScreen(),
         '/vehicles': (context) => const VehicleScreen(),
         '/add_vehicle': (context) => const AddVehicleScreen(),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'password_reset_request_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -16,28 +17,12 @@ class _LoginScreenState extends State<LoginScreen> {
     try {
       await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: emailController.text,
-      password: passwordController.text, 
+        password: passwordController.text,
       );
       Navigator.pushReplacementNamed(context, '/home'); // Vai para a tela Home
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Erro ao fazer login: $e')),
-      );
-    }
-  }
-
-  Future<void> registerUser() async {
-    try {
-      await FirebaseAuth.instance.createUserWithEmailAndPassword(
-        email: emailController.text,
-        password: passwordController.text,
-      );
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Cadastro realizado com sucesso!')),
-      );
-    } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Erro ao cadastrar: $e')),
       );
     }
   }
@@ -65,10 +50,29 @@ class _LoginScreenState extends State<LoginScreen> {
               onPressed: loginUser,
               child: const Text('Login'),
             ),
-            TextButton(
-  onPressed: () => Navigator.pushNamed(context, '/register'),
-  child: const Text('Cadastrar-se'),
-),
+            const SizedBox(height: 10),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                TextButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) =>
+                            const PasswordResetRequestScreen(),
+                      ),
+                    );
+                  },
+                  child: const Text('Esqueceu a senha?'),
+                ),
+                const Text('|', style: TextStyle(color: Colors.grey)), // Separador
+                TextButton(
+                  onPressed: () => Navigator.pushNamed(context, '/register'),
+                  child: const Text('Cadastrar-se'),
+                ),
+              ],
+            ),
           ],
         ),
       ),

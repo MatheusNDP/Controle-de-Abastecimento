@@ -6,6 +6,7 @@ class VehicleCard extends StatelessWidget {
   final int year;
   final String plate;
   final VoidCallback onTap;
+  final VoidCallback? onDelete; // Parâmetro opcional para exclusão
 
   const VehicleCard({
     super.key,
@@ -14,6 +15,7 @@ class VehicleCard extends StatelessWidget {
     required this.year,
     required this.plate,
     required this.onTap,
+    this.onDelete, // Certifique-se de registrar o parâmetro aqui
   });
 
   @override
@@ -23,7 +25,17 @@ class VehicleCard extends StatelessWidget {
       child: ListTile(
         title: Text(name),
         subtitle: Text('$model - $year'),
-        trailing: Text(plate),
+        trailing: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(plate),
+            if (onDelete != null) // Botão de excluir só aparece se `onDelete` for fornecido
+              IconButton(
+                icon: const Icon(Icons.delete, color: Colors.red),
+                onPressed: onDelete,
+              ),
+          ],
+        ),
         onTap: onTap,
       ),
     );
