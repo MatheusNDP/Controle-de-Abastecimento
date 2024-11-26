@@ -1,14 +1,15 @@
-import 'package:controle_de_abastecimento_flutter/widgets/home_button.dart';
+import 'package:controle_de_abastecimento_flutter/screens/add_reful_sreen.dart';
+import 'package:controle_de_abastecimento_flutter/screens/refuel_history_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import '../models/vehicle_model.dart';
+
 
 class VehicleDetailsScreen extends StatelessWidget {
   final Vehicle vehicle;
 
   const VehicleDetailsScreen({super.key, required this.vehicle});
 
-  // Função para calcular a média de consumo
   double calculateAverage({
     required double previousMileage,
     required double currentMileage,
@@ -41,7 +42,10 @@ class VehicleDetailsScreen extends StatelessWidget {
 
     if (shouldDelete == true) {
       try {
-        await FirebaseFirestore.instance.collection('vehicles').doc(vehicle.id).delete();
+        await FirebaseFirestore.instance
+            .collection('vehicles')
+            .doc(vehicle.id)
+            .delete();
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text('Veículo excluído com sucesso!')),
         );
@@ -55,10 +59,8 @@ class VehicleDetailsScreen extends StatelessWidget {
   }
 
   Future<void> _editVehicle(BuildContext context) async {
-    // Navegar para uma tela de edição (não implementada aqui, mas pode ser criada)
     Navigator.pushNamed(context, '/edit_vehicle', arguments: vehicle).then((_) {
-      // Recarrega os detalhes do veículo ao retornar
-      Navigator.pop(context); // Sai da tela atual para evitar inconsistências
+      Navigator.pop(context);
     });
   }
 
@@ -73,7 +75,7 @@ class VehicleDetailsScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(vehicle.name),
-        actions: const [HomeButton()],
+       
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -93,15 +95,52 @@ class VehicleDetailsScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 ElevatedButton.icon(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) =>
+                            RefuelHistoryScreen(vehicleId: vehicle.id),
+                      ),
+                    );
+                  },
+                  icon: const Icon(Icons.history),
+                  label: const Text('Histórico'),
+                  style: ElevatedButton.styleFrom(
+                    minimumSize: const Size(100, 40), 
+                  ),
+                ),
+                ElevatedButton.icon(
                   onPressed: () => _editVehicle(context),
                   icon: const Icon(Icons.edit),
                   label: const Text('Editar'),
+                  style: ElevatedButton.styleFrom(
+                    minimumSize: const Size(100, 40), 
+                  ),
                 ),
                 ElevatedButton.icon(
                   onPressed: () => _deleteVehicle(context),
-                  icon: const Icon(Icons.delete, color: Colors.white),
+                  icon: const Icon(Icons.delete),
                   label: const Text('Excluir'),
-                  style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.red,
+                    minimumSize: const Size(100, 40), 
+                  ),
+                ),
+                ElevatedButton.icon(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => AddRefuelScreen(vehicleId: vehicle.id),
+                      ),
+                    );
+                  },
+                  icon: const Icon(Icons.add),
+                  label: const Text('Abastecer'),
+                  style: ElevatedButton.styleFrom(
+                    minimumSize: const Size(100, 40), 
+                  ),
                 ),
               ],
             ),

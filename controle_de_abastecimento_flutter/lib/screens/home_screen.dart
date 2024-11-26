@@ -7,11 +7,13 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Meus Veículos')),
+      appBar: AppBar(
+        title: const Text('GasTracker'), // Atualizado o título
+      ),
       drawer: const DrawerMenu(),
       body: Center(
         child: Text(
-          'Bem-vindo ao Controle de Abastecimento!',
+          'Bem-vindo ao GasTracker!',
           style: Theme.of(context).textTheme.headlineSmall,
           textAlign: TextAlign.center,
         ),

@@ -1,8 +1,9 @@
-import 'package:controle_de_abastecimento_flutter/widgets/home_button.dart';
+
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import '../widgets/vehicle_card.dart';
 import '../models/vehicle_model.dart';
+import 'add_reful_sreen.dart';
 
 class VehicleScreen extends StatefulWidget {
   const VehicleScreen({super.key});
@@ -86,7 +87,6 @@ class _VehicleScreenState extends State<VehicleScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Meus Veículos'),
-        actions: const [HomeButton()],
       ),
       body: isLoading
           ? const Center(child: CircularProgressIndicator())
@@ -102,17 +102,51 @@ class _VehicleScreenState extends State<VehicleScreen> {
                       year: vehicle.year,
                       plate: vehicle.plate,
                       onTap: () {
-                        // Abre os detalhes do veículo
-                        Navigator.pushNamed(
-                          context,
-                          '/vehicle_details',
-                          arguments: vehicle,
-                        ).then((_) => _loadVehicles()); // Atualiza após voltar
+                        // Exibe um menu de ações para o veículo selecionado
+                        _showVehicleActions(context, vehicle);
                       },
                       onDelete: () => _deleteVehicle(vehicle.id),
                     );
                   },
                 ),
+    );
+  }
+
+  void _showVehicleActions(BuildContext context, Vehicle vehicle) {
+    showModalBottomSheet(
+      context: context,
+      builder: (context) {
+        return Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            ListTile(
+              leading: const Icon(Icons.info),
+              title: const Text('Detalhes do Veículo'),
+              onTap: () {
+                Navigator.pop(context); // Fecha o menu
+                Navigator.pushNamed(
+                  context,
+                  '/vehicle_details',
+                  arguments: vehicle,
+                );
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.add),
+              title: const Text('Novo Abastecimento'),
+              onTap: () {
+                Navigator.pop(context); // Fecha o menu
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => AddRefuelScreen(vehicleId: vehicle.id),
+                  ),
+                );
+              },
+            ),
+          ],
+        );
+      },
     );
   }
 }

@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:controle_de_abastecimento_flutter/widgets/home_button.dart';
-import 'package:uuid/uuid.dart'; // Para gerar IDs únicos para os veículos
+import 'package:uuid/uuid.dart'; 
 
 class AddVehicleScreen extends StatelessWidget {
   const AddVehicleScreen({super.key});
@@ -55,7 +54,7 @@ class AddVehicleScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Adicionar Veículo'),
-        actions: const [HomeButton()],
+
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),

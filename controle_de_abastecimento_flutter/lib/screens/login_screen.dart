@@ -30,12 +30,22 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Login')),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            // Título centralizado "GasTracker"
+            Text(
+              'GasTracker',
+              style: TextStyle(
+                fontSize: 36,
+                fontWeight: FontWeight.bold,
+                color: Theme.of(context).primaryColor,
+              ),
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(height: 40), // Espaçamento abaixo do título
             TextField(
               controller: emailController,
               decoration: const InputDecoration(labelText: 'Email'),
